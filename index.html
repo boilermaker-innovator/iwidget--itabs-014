@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plus Eight with Well-Positioned iTabs</title>
+    <title>Plus Eight with All Features</title>
     <style>
         body {
             font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -76,15 +76,15 @@
             border-top: 4px solid #1e40af;
         }
         
-        /* iTabs popup tabs */
+        /* iTabs popup tabs at bottom */
         .itab-tabs {
             display: flex;
             background-color: #f1f5f9;
-            border-bottom: 1px solid #e2e8f0;
+            border-top: 1px solid #e2e8f0;
         }
         
         .itab-tab {
-            padding: 10px 0;
+            padding: 12px 0;
             flex: 1;
             text-align: center;
             background: none;
@@ -98,12 +98,13 @@
         .itab-tab.active {
             color: #1e40af;
             background: white;
-            border-bottom: 3px solid #1e40af;
+            border-top: 3px solid #1e40af;
         }
         
         .itab-content {
             display: none;
             padding: 15px;
+            padding-bottom: 5px;
         }
         
         .itab-content.active {
@@ -135,15 +136,24 @@
         }
         
         .itab-close {
-            text-align: center;
-            padding: 10px;
-            font-size: 14px;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: #f1f5f9;
             color: #64748b;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            border-top: 1px solid #e2e8f0;
+            border: none;
         }
         
         .itab-close:hover {
+            background-color: #e2e8f0;
             color: #1e40af;
         }
         
@@ -200,11 +210,11 @@
             overflow: hidden;
         }
         
-        /* Popup Tabs */
+        /* Popup Tabs at bottom */
         .popup-tabs {
             display: flex;
             background-color: #f1f5f9;
-            border-bottom: 1px solid #e2e8f0;
+            border-top: 1px solid #e2e8f0;
         }
         
         .popup-tab {
@@ -222,12 +232,13 @@
         .popup-tab.active {
             color: #1e40af;
             background: white;
-            border-bottom: 3px solid #1e40af;
+            border-top: 3px solid #1e40af;
         }
         
         .popup-content {
             display: none;
             padding: 20px;
+            padding-bottom: 10px;
         }
         
         .popup-content.active {
@@ -303,15 +314,24 @@
         }
         
         .popup-close {
-            text-align: center;
-            padding: 12px;
-            font-size: 14px;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #f1f5f9;
             color: #64748b;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            border-top: 1px solid #e2e8f0;
+            border: none;
         }
         
         .popup-close:hover {
+            background-color: #e2e8f0;
             color: #1e40af;
         }
         
@@ -347,6 +367,7 @@
         <strong>Demo Instructions:</strong> 
         <ul>
             <li>Click on the underlined text with "i" indicators to learn more about those terms.</li>
+            <li>Use the tabs at the bottom of popups to view different information.</li>
             <li>Click the 👍i button in the bottom-right corner to share your reaction.</li>
         </ul>
     </div>
@@ -358,11 +379,7 @@
             <span class="itab-container" style="position: relative; display: inline-block;">
                 <span class="itab-term" onclick="openITab('itab1', event)">Plus Eight Accelerator</span>
                 <div id="itab1" class="itab-popup">
-                    <!-- iTabs popup tabs -->
-                    <div class="itab-tabs">
-                        <button class="itab-tab active" onclick="switchITabContent('itab1', 'overview')">Overview</button>
-                        <button class="itab-tab" onclick="switchITabContent('itab1', 'details')">Details</button>
-                    </div>
+                    <button class="itab-close" onclick="closeITab('itab1')">×</button>
                     
                     <!-- Overview tab content -->
                     <div id="itab1-overview" class="itab-content active">
@@ -388,7 +405,11 @@
                         </ul>
                     </div>
                     
-                    <div class="itab-close" onclick="closeITab('itab1')">Close</div>
+                    <!-- iTabs popup tabs -->
+                    <div class="itab-tabs">
+                        <button class="itab-tab active" data-tab="itab1-overview">Overview</button>
+                        <button class="itab-tab" data-tab="itab1-details">Details</button>
+                    </div>
                 </div>
             </span>, is back for 2025 and now accepting applications from ambitious founders ready to scale their businesses globally.</p>
         
@@ -396,11 +417,7 @@
             <span class="itab-container" style="position: relative; display: inline-block;">
                 <span class="itab-term" onclick="openITab('itab2', event)">$400,000 investment</span>
                 <div id="itab2" class="itab-popup">
-                    <!-- iTabs popup tabs -->
-                    <div class="itab-tabs">
-                        <button class="itab-tab active" onclick="switchITabContent('itab2', 'overview')">Structure</button>
-                        <button class="itab-tab" onclick="switchITabContent('itab2', 'details')">Comparison</button>
-                    </div>
+                    <button class="itab-close" onclick="closeITab('itab2')">×</button>
                     
                     <!-- Overview tab content -->
                     <div id="itab2-overview" class="itab-content active">
@@ -426,7 +443,11 @@
                         </ul>
                     </div>
                     
-                    <div class="itab-close" onclick="closeITab('itab2')">Close</div>
+                    <!-- iTabs popup tabs -->
+                    <div class="itab-tabs">
+                        <button class="itab-tab active" data-tab="itab2-overview">Structure</button>
+                        <button class="itab-tab" data-tab="itab2-details">Comparison</button>
+                    </div>
                 </div>
             </span> to accelerate their growth, alongside mentorship from industry leaders and a structured 12-week program designed to take their business to the next level.</p>
         
@@ -434,11 +455,7 @@
             <span class="itab-container" style="position: relative; display: inline-block;">
                 <span class="itab-term" onclick="openITab('itab3', event)">Spacecubed</span>
                 <div id="itab3" class="itab-popup">
-                    <!-- iTabs popup tabs -->
-                    <div class="itab-tabs">
-                        <button class="itab-tab active" onclick="switchITabContent('itab3', 'overview')">About</button>
-                        <button class="itab-tab" onclick="switchITabContent('itab3', 'details')">Locations</button>
-                    </div>
+                    <button class="itab-close" onclick="closeITab('itab3')">×</button>
                     
                     <!-- Overview tab content -->
                     <div id="itab3-overview" class="itab-content active">
@@ -462,7 +479,11 @@
                         </ul>
                     </div>
                     
-                    <div class="itab-close" onclick="closeITab('itab3')">Close</div>
+                    <!-- iTabs popup tabs -->
+                    <div class="itab-tabs">
+                        <button class="itab-tab active" data-tab="itab3-overview">About</button>
+                        <button class="itab-tab" data-tab="itab3-details">Locations</button>
+                    </div>
                 </div>
             </span>. "We're particularly excited about this cohort as we've expanded our partnerships to include even more industry experts and potential customers for our founders."</p>
         
@@ -474,11 +495,7 @@
             <span class="itab-container" style="position: relative; display: inline-block;">
                 <span class="itab-term" onclick="openITab('itab4', event)">success stories</span>
                 <div id="itab4" class="itab-popup">
-                    <!-- iTabs popup tabs -->
-                    <div class="itab-tabs">
-                        <button class="itab-tab active" onclick="switchITabContent('itab4', 'overview')">Results</button>
-                        <button class="itab-tab" onclick="switchITabContent('itab4', 'details')">Case Studies</button>
-                    </div>
+                    <button class="itab-close" onclick="closeITab('itab4')">×</button>
                     
                     <!-- Overview tab content -->
                     <div id="itab4-overview" class="itab-content active">
@@ -500,7 +517,11 @@
                         <p class="itab-text"><strong>Localcart:</strong> E-commerce platform, grew from 5 to 45 employees after Plus Eight.</p>
                     </div>
                     
-                    <div class="itab-close" onclick="closeITab('itab4')">Close</div>
+                    <!-- iTabs popup tabs -->
+                    <div class="itab-tabs">
+                        <button class="itab-tab active" data-tab="itab4-overview">Results</button>
+                        <button class="itab-tab" data-tab="itab4-details">Case Studies</button>
+                    </div>
                 </div>
             </span> from the program include GreenTech Solutions, which raised a $3.2M Series A round after completing Plus Eight, and HealthSync, which was acquired for $12M in 2023.</p>
         
@@ -515,11 +536,7 @@
         </button>
         
         <div class="thumbs-i-popup" id="thumbs-i-popup">
-            <!-- Popup Tabs -->
-            <div class="popup-tabs">
-                <button class="popup-tab active" onclick="switchThumbsTab('react')">React</button>
-                <button class="popup-tab" onclick="switchThumbsTab('stats')">Stats</button>
-            </div>
+            <button class="popup-close" onclick="closeThumbsPopup()">×</button>
             
             <!-- React Tab Content -->
             <div id="react-tab" class="popup-content active">
@@ -545,7 +562,6 @@
                     <div class="reaction-text">I'll share with someone</div>
                 </div>
             </div>
-            
             <!-- Stats Tab Content -->
             <div id="stats-tab" class="popup-content">
                 <div class="popup-title">Community Reactions</div>
@@ -591,7 +607,11 @@
                 </div>
             </div>
             
-            <div class="popup-close" onclick="closeThumbsPopup()">Close</div>
+            <!-- Popup Tabs at Bottom -->
+            <div class="popup-tabs">
+                <button class="popup-tab active" data-tab="react-tab">React</button>
+                <button class="popup-tab" data-tab="stats-tab">Stats</button>
+            </div>
         </div>
     </div>
     
@@ -613,6 +633,47 @@
             
             // Position the popup near the clicked element
             positionPopupNearClick(id, clickX, clickY);
+            
+            // Add event listeners to tabs
+            setupITabTabs(id);
+            
+            // Prevent event from propagating
+            event.stopPropagation();
+        }
+        
+        function setupITabTabs(popupId) {
+            const popup = document.getElementById(popupId);
+            const tabs = popup.querySelectorAll('.itab-tab');
+            
+            tabs.forEach(tab => {
+                // Remove any existing click listeners to prevent duplicates
+                tab.removeEventListener('click', handleTabClick);
+                // Add click listener
+                tab.addEventListener('click', handleTabClick);
+            });
+        }
+        
+        function handleTabClick(event) {
+            // Get the tab content id
+            const tabContentId = this.getAttribute('data-tab');
+            const popup = this.closest('.itab-popup');
+            
+            // Hide all tab contents in this popup
+            const allContents = popup.querySelectorAll('.itab-content');
+            allContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show the selected tab content
+            document.getElementById(tabContentId).classList.add('active');
+            
+            // Update tab active states
+            const tabs = popup.querySelectorAll('.itab-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Prevent event from propagating to document
+            event.stopPropagation();
         }
         
         function positionPopupNearClick(id, clickX, clickY) {
@@ -635,17 +696,26 @@
                 left = 20;
             }
             
-            // Check if popup would go off bottom of screen
-            const popupHeight = popup.offsetHeight;
-            if (top + popupHeight > windowHeight) {
-                // Position above click instead
-                top = clickY - popupHeight - 20;
-            }
-            
-            // Apply the position
+            // Get popup height - more complex with dynamic content
             popup.style.position = 'fixed';
             popup.style.left = left + 'px';
             popup.style.top = top + 'px';
+            
+            // Check after a brief delay to get correct height
+            setTimeout(() => {
+                const popupHeight = popup.offsetHeight;
+                
+                // Check if popup would go off bottom of screen
+                if (top + popupHeight > windowHeight) {
+                    // Position above click instead
+                    top = clickY - popupHeight - 20;
+                    if (top < 20) {
+                        // If would go off top, position at top with margin
+                        top = 20;
+                    }
+                    popup.style.top = top + 'px';
+                }
+            }, 10);
         }
         
         function closeITab(id) {
@@ -659,31 +729,6 @@
             });
         }
         
-        function switchITabContent(tabId, contentId) {
-            // Hide all tab contents for this iTab
-            const contents = document.querySelectorAll(`#${tabId} .itab-content`);
-            contents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Deactivate all tabs for this iTab
-            const tabs = document.querySelectorAll(`#${tabId} .itab-tab`);
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Activate the selected tab content
-            document.getElementById(`${tabId}-${contentId}`).classList.add('active');
-            
-            // Find and activate the correct tab button
-            const tabButtons = document.querySelectorAll(`#${tabId} .itab-tab`);
-            for (let i = 0; i < tabButtons.length; i++) {
-                if (tabButtons[i].textContent.toLowerCase() === contentId) {
-                    tabButtons[i].classList.add('active');
-                }
-            }
-        }
-        
         // *** 👍i Functions ***
         function toggleThumbsPopup() {
             const popup = document.getElementById('thumbs-i-popup');
@@ -692,41 +737,68 @@
                 popup.style.display = 'none';
             } else {
                 popup.style.display = 'block';
+                setupThumbsTabs();
             }
+        }
+        
+        function setupThumbsTabs() {
+            const popup = document.getElementById('thumbs-i-popup');
+            const tabs = popup.querySelectorAll('.popup-tab');
+            
+            tabs.forEach(tab => {
+                // Remove existing listeners
+                tab.removeEventListener('click', handleThumbsTabClick);
+                // Add click listener
+                tab.addEventListener('click', handleThumbsTabClick);
+            });
+        }
+        
+        function handleThumbsTabClick(event) {
+            // Get the tab content id
+            const tabContentId = this.getAttribute('data-tab');
+            const popup = document.getElementById('thumbs-i-popup');
+            
+            // Hide all tab contents
+            const allContents = popup.querySelectorAll('.popup-content');
+            allContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show the selected tab content
+            document.getElementById(tabContentId).classList.add('active');
+            
+            // Update tab active states
+            const tabs = popup.querySelectorAll('.popup-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Prevent closing the popup
+            event.stopPropagation();
         }
         
         function closeThumbsPopup() {
             document.getElementById('thumbs-i-popup').style.display = 'none';
         }
         
-        function switchThumbsTab(tabId) {
+        function react(type) {
+            // Switch to stats tab
+            const popup = document.getElementById('thumbs-i-popup');
+            const statsTab = popup.querySelector('.popup-tab[data-tab="stats-tab"]');
+            
+            // Trigger tab change to stats
             // Hide all tab contents
-            const tabContents = document.querySelectorAll('.popup-content');
-            tabContents.forEach(content => {
+            const allContents = popup.querySelectorAll('.popup-content');
+            allContents.forEach(content => {
                 content.classList.remove('active');
             });
             
-            // Deactivate all tabs
-            const tabs = document.querySelectorAll('.popup-tab');
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
+            // Show the stats tab content
+            document.getElementById('stats-tab').classList.add('active');
             
-            // Activate the selected tab and content
-            document.getElementById(tabId + '-tab').classList.add('active');
-            
-            // Find and activate the correct tab button
-            const tabButtons = document.querySelectorAll('.popup-tab');
-            for (let i = 0; i < tabButtons.length; i++) {
-                if (tabButtons[i].textContent.toLowerCase() === tabId) {
-                    tabButtons[i].classList.add('active');
-                }
-            }
-        }
-        
-        function react(type) {
-            // Switch to stats tab after reaction
-            switchThumbsTab('stats');
+            // Update tab active states
+            const tabs = popup.querySelectorAll('.popup-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            statsTab.classList.add('active');
             
             // Show toast notification
             const toast = document.getElementById('toast');
@@ -744,6 +816,16 @@
         
         // Close popups when clicking outside
         document.addEventListener('click', function(event) {
+            // Do not close iTabs if clicking on tab buttons
+            if (event.target.classList.contains('itab-tab')) {
+                return;
+            }
+            
+            // Do not close thumbs popup if clicking on thumbs tabs
+            if (event.target.classList.contains('popup-tab')) {
+                return;
+            }
+            
             // Close iTabs if clicking outside
             if (!event.target.closest('.itab-container') && !event.target.classList.contains('itab-close')) {
                 closeAllITabs();
@@ -754,6 +836,11 @@
             if (!thumbsContainer.contains(event.target)) {
                 closeThumbsPopup();
             }
+        });
+        
+        // Initialize 👍i tabs on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setupThumbsTabs();
         });
     </script>
 </body>
