@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTabs Demo for Plus Eight Article</title>
+    <style>
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8fafc;
+        }
+        
+        header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #2a3f5f;
+            font-size: 2.2rem;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        h2 {
+            color: #2a3f5f;
+            font-size: 1.5rem;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #ddd;
+            background-image: url('https://i.ibb.co/vHj5XJF/placeholderlogo.png');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .author-info {
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        .author-info div:first-child {
+            font-weight: 600;
+            color: #334155;
+        }
+        
+        .featured-image {
+            width: 100%;
+            height: 300px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #0c2340;
+            background-image: linear-gradient(135deg, #0c2340 0%, #17469e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-style: italic;
+            position: relative;
+        }
+        
+        .featured-image::after {
+            content: "PLUS EIGHT";
+            position: absolute;
+            font-size: 4rem;
+            font-weight: 800;
+            opacity: 0.2;
+            letter-spacing: 4px;
+        }
+        
+        .article-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #334155;
+        }
+        
+        /* iTabs Styling */
+        .itab-term {
+            position: relative;
+            font-weight: bold;
+            color: #1e40af;
+            text-decoration: none;
+            border-bottom: 1px dashed #1e40af;
+            cursor: pointer;
+            padding-right: 5px;
+        }
+        
+        .itab-term::after {
+            content: "i";
+            position: absolute;
+            top: -10px;
+            right: -8px;
+            background-color: #1e40af;
+            color: white;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-style: italic;
+            font-weight: bold;
+        }
+        
+        .itab-content {
+            display: none;
+            position: absolute;
+            z-index: 100;
+            width: 320px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 18px;
+            margin-top: 10px;
+            left: 0;
+            font-size: 14px;
+            border-top: 4px solid #1e40af;
+        }
+        
+        .itab-content h4 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #1e40af;
+            font-size: 16px;
+        }
+        
+        .itab-content p {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #334155;
+        }
+        
+        .itab-content ul {
+            margin: 0 0 15px 20px;
+            padding: 0;
+            color: #334155;
+        }
+        
+        .itab-content li {
+            margin-bottom: 5px;
+        }
+        
+        .itab-content .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            font-size: 20px;
+            color: #94a3b8;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: color 0.2s;
+        }
+        
+        .itab-content .close-btn:hover {
+            color: #475569;
+        }
+        
+        blockquote {
+            margin: 30px 0;
+            padding: 20px 30px;
+            background-color: #f1f5f9;
+            border-left: 4px solid #1e40af;
+            font-style: italic;
+            color: #334155;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        ul, ol {
+            margin: 0 0 25px 25px;
+            padding: 0;
+            color: #334155;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #1e40af;
+            color: white;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.2s;
+        }
+        
+        .cta-button:hover {
+            background-color: #1e3a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 64, 175, 0.2);
+        }
+        
+        .instructions {
+            background-color: #e0f2fe;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #0ea5e9;
+            color: #0c4a6e;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #4338ca;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+        
+        .social-share {
+            display: flex;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .share-text {
+            font-weight: 600;
+            margin-right: 15px;
+            color: #64748b;
+        }
+        
+        .share-icons a {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+            background-color: #f1f5f9;
+            border-radius: 50%;
+            color: #64748b;
+            text-align: center;
+            line-height: 32px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .category-links {
+            margin-top: 30px;
+        }
+        
+        .category {
+            display: inline-block;
+            margin-right: 10px;
+            text-decoration: none;
+            color: #3b82f6;
+            font-size: 14px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background-color: #eff6ff;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <strong>Demo Instructions:</strong> Click on the underlined text with the "i" indicator to reveal additional information.
+    </div>
+    
+    <article class="article-container">
+        <header>
+            <div class="tag">Applications Open</div>
+            <h1>Ready to elevate your startup? Plus Eight Accelerator applications are open for 2025</h1>
+            <div class="author">
+                <div class="author-image"></div>
+                <div class="author-info">
+                    <div>By Spacecubed Team</div>
+                    <div>February 15, 2025 · 5 min read</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="featured-image">[Plus Eight Program Banner Image]</div>
+        
+        <p>WA's premier startup accelerator program, 
+            <span class="itab-container" style="position: relative; display: inline-block;">
+                <span class="itab-term" onclick="toggleInfo('info1')">Plus Eight Accelerator</span>
+                <div id="info1" class="itab-content">
+                    <button class="close-btn" onclick="toggleInfo('info1')">×</button>
+                    <h4>Plus Eight Accelerator</h4>
+                    <p>Western Australia's premier startup accelerator program, running since 2017.</p>
+                    <ul>
+                        <li>Supported 45+ startups to date</li>
+                        <li>Helped raise over $29M in follow-on funding</li>
+                        <li>12-week intensive mentorship program</li>
+                        <li>Access to global network of mentors and investors</li>
+                    </ul>
+                    <p>The program is a partnership between Spacecubed and several corporate partners committed to innovation in WA.</p>
+                </div>
+            </span>, is back for 2025 and now accepting applications from ambitious founders ready to scale their businesses globally.</p>
+        
+        <p>Selected startups will receive up to 
+            <span class="itab-container" style="position: relative; display: inline-block;">
+                <span class="itab-term" onclick="toggleInfo('info2')">$400,000 investment</span>
+                <div id="info2" class="itab-content">
+                    <button class="close-btn" onclick="toggleInfo('info2')">×</button>
+                    <h4>Investment Structure</h4>
+                    <p>The $400,000 investment is structured as:</p>
+                    <ul>
+                        <li>$200,000 initial investment at program start</li>
+                        <li>$200,000 follow-on upon successful program completion</li>
+                        <li>Standard terms: 7-10% equity stake</li>
+                        <li>SAFE notes available for early-stage startups</li>
+                    </ul>
+                    <p>This investment structure is competitive with leading accelerators globally while being tailored to the Australian market.</p>
+                </div>
+            </span> to accelerate their growth, alongside mentorship from industry leaders and a structured 12-week program designed to take their business to the next level.</p>
+        
+        <p>"Plus Eight has established itself as a cornerstone of WA's startup ecosystem," says Brodie McCulloch, Managing Director at 
+            <span class="itab-container" style="position: relative; display: inline-block;">
+                <span class="itab-term" onclick="toggleInfo('info3')">Spacecubed</span>
+                <div id="info3" class="itab-content">
+                    <button class="close-btn" onclick="toggleInfo('info3')">×</button>
+                    <h4>Spacecubed</h4>
+                    <p>Established in 2012, Spacecubed is Western Australia's leading coworking and innovation hub.</p>
+                    <ul>
+                        <li>3 premium locations across Perth</li>
+                        <li>Home to 750+ members and 250+ organizations</li>
+                        <li>Runs multiple accelerator and incubator programs</li>
+                        <li>10,000+ community members engaged annually</li>
+                    </ul>
+                    <p>Spacecubed's mission is to provide the physical spaces, digital platforms, and startup programs to support 100,000 entrepreneurs by 2030.</p>
+                </div>
+            </span>. "We're particularly excited about this cohort as we've expanded our partnerships to include even more industry experts and potential customers for our founders."</p>
+        
+        <p>The 2025 program brings together corporate partners 
+            <span class="itab-container" style="position: relative; display: inline-block;">
+                <span class="itab-term" onclick="toggleInfo('info4')">RAC, Hawaiian, and Visagio</span>
+                <div id="info4" class="itab-content">
+                    <button class="close-btn" onclick="toggleInfo('info4')">×</button>
+                    <h4>Corporate Partners</h4>
+                    <p><strong>RAC:</strong> Western Australia's leading member organization providing roadside, insurance, travel and finance services to over 1 million members.</p>
+                    <p><strong>Hawaiian:</strong> Property development and management group with significant commercial, retail and hospitality assets throughout Australia.</p>
+                    <p><strong>Visagio:</strong> Global business consultancy specializing in digital transformation, operations strategy, and technology implementation.</p>
+                    <p>These partners provide mentorship, potential pilot opportunities, and industry expertise to accelerator participants.</p>
+                </div>
+            </span>, alongside a global network of mentors and investors ready to help selected startups scale.</p>
+        
+        <h2>Who Should Apply?</h2>
+        
+        <p>Applications are open to startups across Australia, with a focus on those that have demonstrated product-market fit and are ready to scale. The program is particularly interested in innovations in 
+            <span class="itab-container" style="position: relative; display: inline-block;">
+                <span class="itab-term" onclick="toggleInfo('info5')">sustainability, health tech, and enterprise solutions</span>
+                <div id="info5" class="itab-content">
+                    <button class="close-btn" onclick="toggleInfo('info5')">×</button>
+                    <h4>Focus Industries</h4>
+                    <p><strong>Sustainability:</strong> Climate tech, renewable energy, circular economy, carbon reduction solutions, and sustainable materials.</p>
+                    <p><strong>Health Tech:</strong> Digital health, remote monitoring, health data analytics, wellness applications, and medical technology.</p>
+                    <p><strong>Enterprise Solutions:</strong> B2B software, AI applications, automation, logistics optimization, and industry-specific productivity tools.</p>
+                    <p>While these are focus areas, exceptional startups from any sector are encouraged to apply.</p>
+                </div>
+            </span>, though exceptional startups from any sector are encouraged to apply.</p>
+        
+        <p>Dr. Carolyn Williams, Plus Eight Program Director, notes, "We're looking for founders who not only have great ideas but have already validated them with real customers. The ideal Plus Eight participant has moved beyond MVP and is ready to scale their solution with the right mix of capital, connections, and coaching."</p>
+        
+        <blockquote>
+            "Plus Eight is the rocket fuel for startups that are ready to grow quickly. We're not just providing investment, but a complete ecosystem to support that growth."
+        </blockquote>
+        
+        <h2>The Program Experience</h2>
+        
+        <p>The 12-week accelerator program includes:</p>
+        <ul>
+            <li>Weekly workshops with industry experts</li>
+            <li>One-on-one mentoring sessions</li>
+            <li>Customer introduction opportunities</li>
+            <li>Investor readiness preparation</li>
+            <li>Co-working space at Spacecubed locations</li>
+            <li>Demo Day presentation to investors and partners</li>
+        </ul>
+        
+        <p>Previous 
+            <span class="itab-container" style="position: relative; display: inline-block;">
+                <span class="itab-term" onclick="toggleInfo('info6')">success stories</span>
+                <div id="info6" class="itab-content">
+                    <button class="close-btn" onclick="toggleInfo('info6')">×</button>
+                    <h4>Plus Eight Success Stories</h4>
+                    <p><strong>GreenTech Solutions:</strong> Raised $3.2M Series A after Plus Eight, now operating in 3 countries with 28 staff.</p>
+                    <p><strong>HealthSync:</strong> Remote patient monitoring platform, acquired for $12M in 2023 following Plus Eight participation.</p>
+                    <p><strong>Localcart:</strong> E-commerce enablement platform, grew from 5 to 45 employees and expanded to Asia-Pacific markets after the program.</p>
+                    <p><strong>DataFlow Analytics:</strong> Enterprise data solution, secured contracts with two ASX 100 companies within 6 months of program completion.</p>
+                    <p>"Plus Eight provided exactly what we needed - not just capital, but connections to customers and strategic advice that accelerated our growth." - Sarah Chen, Founder of HealthSync</p>
+                </div>
+            </span> from the program include GreenTech Solutions, which raised a $3.2M Series A round after completing Plus Eight, and HealthSync, which was acquired for $12M in 2023.</p>
+        
+        <h2>Application Process</h2>
+        
+        <p>The application process for Plus Eight 2025 involves:</p>
+        <ol>
+            <li>Initial online application</li>
+            <li>Shortlisted team interviews</li>
+            <li>Final selection by investment committee</li>
+        </ol>
+        
+        <p>
+            <span class="itab-container" style="position: relative; display: inline-block;">
+                <span class="itab-term" onclick="toggleInfo('info7')">Key dates</span>
+                <div id="info7" class="itab-content">
+                    <button class="close-btn" onclick="toggleInfo('info7')">×</button>
+                    <h4>Program Timeline</h4>
+                    <ul>
+                        <li><strong>Applications open:</strong> February 15, 2025</li>
+                        <li><strong>Applications close:</strong> April 15, 2025</li>
+                        <li><strong>Selection process:</strong> April 16 - May 15, 2025</li>
+                        <li><strong>Program kickoff:</strong> June 1, 2025</li>
+                        <li><strong>Demo Day:</strong> August 25, 2025</li>
+                    </ul>
+                    <p>All dates are subject to minor adjustments. Selected participants will need to commit full-time to the program for its duration.</p>
+                </div>
+            </span> to note: Applications close April 15th, with the program kicking off in June 2025.</p>
+        
+        <p>Interested founders can learn more and apply through the Plus Eight website.</p>
+        
+        <a href="#" class="cta-button">Apply to Plus Eight Accelerator</a>
+        
+        <div class="category-links">
+            <a href="#" class="category">Startups</a>
+            <a href="#" class="category">Accelerator</a>
+            <a href="#" class="category">Investment</a>
+            <a href="#" class="category">Plus Eight</a>
+        </div>
+        
+        <div class="social-share">
+            <div class="share-text">Share this article:</div>
+            <div class="share-icons">
+                <a href="#" title="Share on LinkedIn">in</a>
+                <a href="#" title="Share on Twitter">t</a>
+                <a href="#" title="Share on Facebook">f</a>
+                <a href="#" title="Share via Email">@</a>
+            </div>
+        </div>
+    </article>
+    
+    <script>
+        function toggleInfo(id) {
+            const element = document.getElementById(id);
+            
+            // Close all other open info boxes
+            const allInfoBoxes = document.querySelectorAll('.itab-content');
+            allInfoBoxes.forEach(box => {
+                if (box.id !== id) {
+                    box.style.display = 'none';
+                }
+            });
+            
+            // Toggle the clicked info box
+            if (element.style.display === 'block') {
+                element.style.display = 'none';
+            } else {
+                element.style.display = 'block';
+            }
+        }
+        
+        // Close info boxes when clicking elsewhere on the page
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.itab-container') && !event.target.classList.contains('close-btn')) {
+                const allInfoBoxes = document.querySelectorAll('.itab-content');
+                allInfoBoxes.forEach(box => {
+                    box.style.display = 'none';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- 👍i Widget -->
+<style>
+    .thumbs-i-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 1000;
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    
+    .thumbs-i-button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        position: relative;
+        border: none;
+    }
+    
+    .i-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #1e40af;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-style: italic;
+        font-weight: bold;
+    }
+    
+    .thumbs-i-popup {
+        position: absolute;
+        bottom: 75px;
+        right: 0;
+        width: 320px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        padding: 20px;
+        display: none;
+        border-top: 4px solid #1e40af;
+    }
+    
+    .popup-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #1e40af;
+    }
+    
+    .reaction-option {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        background-color: #f8fafc;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .reaction-option:hover {
+        background-color: #e0e7ff;
+        transform: translateY(-2px);
+    }
+    
+    .reaction-emoji {
+        font-size: 24px;
+        margin-right: 12px;
+    }
+    
+    .reaction-text {
+        font-size: 15px;
+        color: #334155;
+    }
+    
+    .popup-close {
+        text-align: center;
+        padding-top: 10px;
+        font-size: 14px;
+        color: #64748b;
+        cursor: pointer;
+    }
+    
+    .popup-close:hover {
+        color: #1e40af;
+    }
+    
+    .stats-popup {
+        position: absolute;
+        bottom: 75px;
+        right: 0;
+        width: 320px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        padding: 20px;
+        display: none;
+        border-top: 4px solid #1e40af;
+    }
+    
+    .stats-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #1e40af;
+    }
+    
+    .stat-item {
+        margin-bottom: 15px;
+    }
+    
+    .stat-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+    
+    .stat-text {
+        font-size: 14px;
+        color: #334155;
+    }
+    
+    .stat-count {
+        font-weight: 600;
+        color: #1e40af;
+    }
+    
+    .stat-bar {
+        height: 8px;
+        background-color: #e2e8f0;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    
+    .stat-fill {
+        height: 100%;
+        background-color: #1e40af;
+        border-radius: 4px;
+    }
+    
+    .thumbs-i-toast {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #1e40af;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        display: none;
+        z-index: 2000;
+    }
+</style>
+
+<div class="thumbs-i-container">
+    <button class="thumbs-i-button" onclick="thumbsI.toggleReactionPopup()">
+        👍
+        <div class="i-badge">i</div>
+    </button>
+    
+    <div class="thumbs-i-popup" id="thumbs-i-reaction-popup">
+        <div class="popup-title">What did you think?</div>
+        
+        <div class="reaction-option" onclick="thumbsI.react('useful')">
+            <div class="reaction-emoji">👍</div>
+            <div class="reaction-text">This is useful information</div>
+        </div>
+        
+        <div class="reaction-option" onclick="thumbsI.react('interesting')">
+            <div class="reaction-emoji">💡</div>
+            <div class="reaction-text">Interesting opportunity</div>
+        </div>
+        
+        <div class="reaction-option" onclick="thumbsI.react('applying')">
+            <div class="reaction-emoji">🚀</div>
+            <div class="reaction-text">I'm going to apply</div>
+        </div>
+        
+        <div class="reaction-option" onclick="thumbsI.react('share')">
+            <div class="reaction-emoji">📱</div>
+            <div class="reaction-text">I'll share with someone</div>
+        </div>
+        
+        <div class="popup-close" onclick="thumbsI.closePopups()">Close</div>
+    </div>
+    
+    <div class="stats-popup" id="thumbs-i-stats-popup">
+        <div class="stats-title">Community Reactions</div>
+        
+        <div class="stat-item">
+            <div class="stat-label">
+                <div class="stat-text">👍 Useful information</div>
+                <div class="stat-count">65%</div>
+            </div>
+            <div class="stat-bar">
+                <div class="stat-fill" style="width: 65%"></div>
+            </div>
+        </div>
+        
+        <div class="stat-item">
+            <div class="stat-label">
+                <div class="stat-text">💡 Interesting opportunity</div>
+                <div class="stat-count">22%</div>
+            </div>
+            <div class="stat-bar">
+                <div class="stat-fill" style="width: 22%"></div>
+            </div>
+        </div>
+        
+        <div class="stat-item">
+            <div class="stat-label">
+                <div class="stat-text">🚀 Going to apply</div>
+                <div class="stat-count">8%</div>
+            </div>
+            <div class="stat-bar">
+                <div class="stat-fill" style="width: 8%"></div>
+            </div>
+        </div>
+        
+        <div class="stat-item">
+            <div class="stat-label">
+                <div class="stat-text">📱 Sharing with others</div>
+                <div class="stat-count">5%</div>
+            </div>
+            <div class="stat-bar">
+                <div class="stat-fill" style="width: 5%"></div>
+            </div>
+        </div>
+        
+        <div class="popup-close" onclick="thumbsI.closePopups()">Close</div>
+    </div>
+</div>
+
+<div class="thumbs-i-toast" id="thumbs-i-toast"></div>
+
+<script>
+    // Create namespace to avoid conflicts
+    window.thumbsI = {
+        toggleReactionPopup: function() {
+            const reactionPopup = document.getElementById('thumbs-i-reaction-popup');
+            const statsPopup = document.getElementById('thumbs-i-stats-popup');
+            
+            statsPopup.style.display = 'none';
+            
+            if (reactionPopup.style.display === 'block') {
+                reactionPopup.style.display = 'none';
+            } else {
+                reactionPopup.style.display = 'block';
+            }
+        },
+        
+        react: function(type) {
+            // Close reaction popup
+            document.getElementById('thumbs-i-reaction-popup').style.display = 'none';
+            
+            // Show toast notification
+            const toast = document.getElementById('thumbs-i-toast');
+            toast.textContent = 'Thanks for your feedback!';
+            toast.style.display = 'block';
+            
+            // Hide toast after 2.5 seconds
+            setTimeout(() => {
+                toast.style.display = 'none';
+                
+                // Show stats popup
+                document.getElementById('thumbs-i-stats-popup').style.display = 'block';
+            }, 2500);
+            
+            // In a real implementation, you would send this data to your server
+            console.log('Reaction:', type);
+        },
+        
+        closePopups: function() {
+            document.getElementById('thumbs-i-reaction-popup').style.display = 'none';
+            document.getElementById('thumbs-i-stats-popup').style.display = 'none';
+        }
+    };
+    
+    // Close popups when clicking outside
+    document.addEventListener('click', function(event) {
+        const thumbsContainer = document.querySelector('.thumbs-i-container');
+        
+        if (!thumbsContainer.contains(event.target)) {
+            thumbsI.closePopups();
+        }
+    });
+</script>
+
